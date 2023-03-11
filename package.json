@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Full Stack Countries Monorepo",
   "scripts": {
-    "start": "echo \"Monorepo started...\""
+    "start": "pnpm run --parallel -r start"
   },
   "keywords": [
     "node",

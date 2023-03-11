@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "client",
+  "version": "1.0.0",
+  "description": "Frontend countries service",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"Client running...\""
+  },
+  "author": "Aldo R. Robles",
+  "license": "ISC"
+}

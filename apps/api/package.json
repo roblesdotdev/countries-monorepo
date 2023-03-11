@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Backend countries service",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"Api running...\""
+  },
+  "author": "Aldo R. Robles",
+  "license": "ISC"
+}
