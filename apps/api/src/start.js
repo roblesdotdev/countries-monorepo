@@ -1,13 +1,8 @@
-if (process.env.NODE_ENV === "development") {
-  require("dotenv").config();
-}
 const logger = require("loglevel");
 const server = require("./server");
 const { conn } = require("./db");
 const seed = require("./db/seed");
-
-const APP_PORT = process.env.APP_PORT || 3001;
-const DB_SYNC = process.env.DB_SYNC || true;
+const { APP_PORT, DB_SYNC } = require("./config");
 
 logger.setLevel(process.env.NODE_ENV !== "production" ? "TRACE" : "SILENT");
 

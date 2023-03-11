@@ -1,12 +1,11 @@
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-
-const DATABASE_URL = process.env.DATABASE_URL || "./db.sqlite";
+const { DB_URL } = require("../config");
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: DATABASE_URL,
+  storage: DB_URL,
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
