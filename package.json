@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "countries-monorepo",
+  "version": "1.0.0",
+  "description": "Full Stack Countries Monorepo",
+  "scripts": {
+    "start": "echo \"Monorepo started...\""
+  },
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "redux"
+  ],
+  "author": "Aldo R. Robles",
+  "license": "ISC"
+}
