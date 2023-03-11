@@ -1,6 +1,4 @@
-const { getDbCountries } = require("../utils/db");
-const { Op } = require("sequelize");
-const { Country, Activity } = require("../db");
+const { getDbCountries, getDbCountryById } = require("../utils/db");
 
 async function getAllCountries(req, res) {
   const { name: query } = req.query;
@@ -23,12 +21,7 @@ async function getAllCountries(req, res) {
 
 async function getCountry(req, res) {
   const { id: countryID } = req.params;
-  const country = await Country.findByPk(countryID, {
-    include: {
-      model: Activity,
-      through: { attributes: [] },
-    },
-  });
+  const country = await getDbCountryById(countryID);
   if (!country) {
     return res.jsonError(`Country with id ${countryID} couldn't found`, 404);
   }

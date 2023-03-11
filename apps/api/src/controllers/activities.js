@@ -1,56 +1,41 @@
-const { Activity, Country } = require("../db");
-const { Op } = require("sequelize");
+const {
+  countDbCountries,
+  findOrCreateDbActivity,
+  getDbActivityById,
+  getDbActivities,
+} = require("../utils/db");
 
 async function createActivity(req, res) {
   const { countries } = req.body;
-  const count = await Country.count({
-    where: { id: { [Op.in]: countries } },
-  });
+  const count = await countDbCountries(countries);
+
   if (count !== countries.length) {
     return res.jsonError("Invalid countries IDs provided.", 400);
   }
   const { name, ...formData } = res.form;
-  const [activity, created] = await Activity.findOrCreate({
-    where: {
-      name,
-    },
-    defaults: {
-      ...formData,
-    },
-  });
+  const [activity, created] = await findOrCreateDbActivity(name, formData);
+
   if (!created)
     return res.jsonError(`The activity ${res.form.name} already exists`, 400);
   await activity.setCountries(countries);
 
-  const newActivity = await Activity.findByPk(activity.id, {
-    include: {
-      model: Country,
-      through: { attributes: [] },
-    },
-  });
+  const newActivity = await getDbActivityById(activity.id);
 
-  res.jsonSuccess({ activity: newActivity });
+  return res.jsonSuccess({ activity: newActivity });
 }
 
 async function getAllActivities(_req, res) {
-  const activities = await Activity.findAll({
-    order: [["id", "DESC"]],
-  });
-  res.jsonSuccess({ activities });
+  const activities = await getDbActivities();
+  return res.jsonSuccess({ activities });
 }
 
 async function getActivity(req, res) {
-  const { activityID } = req.params;
-  const activity = await Activity.findByPk(activityID, {
-    include: {
-      model: Country,
-      through: { attributes: [] },
-    },
-  });
+  const { id: activityID } = req.params;
+  const activity = await getActivityById(activityID);
   if (!activity)
     return res.jsonError(`Couldn't found activity ${activityID}`, 404);
 
-  res.jsonSuccess({ activity });
+  return res.jsonSuccess({ activity });
 }
 
 module.exports = {
