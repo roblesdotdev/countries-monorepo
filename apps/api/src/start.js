@@ -4,6 +4,7 @@ if (process.env.NODE_ENV === "development") {
 const logger = require("loglevel");
 const server = require("./server");
 const { conn } = require("./db");
+const seed = require("./db/seed");
 
 const APP_PORT = process.env.APP_PORT || 3001;
 const DB_SYNC = process.env.DB_SYNC || true;
@@ -15,6 +16,7 @@ server.listen(APP_PORT, async () => {
   try {
     await conn.sync({ force: DB_SYNC });
     logger.info("✅ Database is up");
+    await seed();
   } catch (err) {
     logger.error(`❌ ${err.message}`);
   }
