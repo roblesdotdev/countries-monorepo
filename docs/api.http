@@ -1,0 +1,20 @@
+### Get all countries
+GET http://localhost:3001/countries
+
+### Get filtered countries success
+GET http://localhost:3001/countries?name=ar
+
+### Get filtered countries error
+GET http://localhost:3001/countries?name=nonexistsq
+
+### Get country by id success
+GET http://localhost:3001/countries/BRA
+
+### Get country by id error
+GET http://localhost:3001/countries/ZZZ
+
+### Get all activities
+GET http://localhost:3001/activities
+
+### Create an activity
+POST http://localhost:3001/activities
