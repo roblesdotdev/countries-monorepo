@@ -18,3 +18,15 @@ GET http://localhost:3001/activities
 
 ### Create an activity
 POST http://localhost:3001/activities
+Content-Type: application/json
+
+{
+  "name": "Mountain Bike",
+  "season": "Summer",
+  "duration": "2",
+  "difficulty": "4",
+  "countries": [
+    "BRA",
+    "ARG"
+  ]
+}
