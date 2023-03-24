@@ -1,0 +1,24 @@
+$rules: (m, margin), (ml, margin-left), (mt, margin-top), (mb, margin-bottom),
+  (mr, margin-right), (p, padding), (pl, padding-left), (pt, padding-top),
+  (pb, padding-bottom), (pr, padding-right) (gap, gap);
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
+}
+.m-auto {
+  margin: auto;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
