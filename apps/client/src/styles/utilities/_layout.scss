@@ -1,0 +1,98 @@
+/* Aspect Ratio */
+.ratio-square {
+  aspect-ratio: 1 / 1;
+}
+.ratio-video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Container */
+.container {
+  width: 100%;
+}
+
+/* Object fit */
+.object-cover {
+  object-fit: cover;
+}
+
+/* Object position */
+.object-bottom {
+  object-position: bottom;
+}
+.object-top {
+  object-position: top;
+}
+.object-center {
+  object-position: center;
+}
+
+/* Overflow */
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.overflow-auto {
+  overflow: auto;
+}
+
+/* Position */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.sticky {
+  position: sticky;
+}
+.static {
+  position: static;
+}
+.inset-0 {
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+.inset-x {
+  right: 0px;
+  left: 0px;
+}
+.inset-y {
+  top: 0px;
+  bottom: 0px;
+}
+
+/* Display */
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+
+/* Z-Index */
+.z-10 {
+  z-index: 10;
+}
+.z-20 {
+  z-index: 20;
+}
+.z-30 {
+  z-index: 30;
+}
+.z-40 {
+  z-index: 40;
+}
+.z-50 {
+  z-index: 50;
+}
+.z-auto {
+  z-index: auto;
+}
