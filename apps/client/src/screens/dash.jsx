@@ -3,7 +3,10 @@ import { Outlet } from 'react-router-dom'
 export default function DashScreen() {
   return (
     <div>
-      <h1>Dash Screen</h1>
+      <div className="flex items-center justify-between p-4 max-w-xl mx-auto">
+        <h1>Logo</h1>
+        <button>Theme</button>
+      </div>
       <main>
         <Outlet />
       </main>

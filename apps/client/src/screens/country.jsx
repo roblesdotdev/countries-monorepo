@@ -6,7 +6,7 @@ export default function CountryScreen() {
   const navigate = useNavigate()
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center h-screen gap-4">
       <button onClick={() => navigate(-1)}>Back</button>
       <h1>Country detail {id}</h1>
     </div>
