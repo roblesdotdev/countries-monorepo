@@ -103,5 +103,14 @@ table {
 
 input {
   -webkit-appearance: none;
+  appearance: none;
   border-radius: 0;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: inherit;
+  background: inherit;
 }

@@ -11,13 +11,24 @@
 }
 
 :root.dark {
+  --bg-1st: #0d1117;
+  --fg-1st: #eee;
+  --fg-muted: rgba(255, 255, 255, 0.5);
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--fg-1st);
+  background-color: var(--bg-1st);
 }
 
 :root.light {
   color-scheme: dark light;
   color: black;
   background-color: #fafafa;
+}
+
+.fg-1st {
+  color: var(--fg-1st);
+}
+.fg-muted {
+  color: var(--fg-muted);
 }

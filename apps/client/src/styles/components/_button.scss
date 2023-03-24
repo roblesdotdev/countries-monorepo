@@ -1,0 +1,33 @@
+$border-w: 0.2em;
+
+.btn {
+  --stop-list: #26e0ec, #bf4fd9;
+  --grad: linear-gradient(to right bottom, var(--stop-list));
+  grid-gap: 0.5em;
+  grid-auto-flow: column;
+  place-self: center;
+  cursor: pointer;
+  padding: 0.8em 1.5em;
+  border-radius: 9em;
+  text-transform: uppercase;
+  border: solid $border-w transparent;
+  background: var(--grad) border-box;
+  -webkit-text-fill-color: transparent;
+  border-image: var(--grad) 1;
+  -webkit-background-clip: text;
+  background-clip: text;
+  clip-path: inset(0 round $border-w);
+  font-size: 1em;
+  transition: all 0.2s ease-in-out;
+
+  &-icon {
+    padding: 12px 16px;
+    border-width: 0.1em;
+  }
+
+  &-link {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 4px;
+  }
+}
