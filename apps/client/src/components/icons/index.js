@@ -1,0 +1,5 @@
+export { default as GithubIcon } from './github'
+export { default as SearchIcon } from './search'
+export { default as FilterIcon } from './filter'
+export { default as XMarkIcon } from './x-mark'
+export { default as TrashIcon } from './trash'
