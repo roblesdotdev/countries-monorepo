@@ -3,12 +3,41 @@ import { FilterIcon, TrashIcon, XMarkIcon } from '@/components/icons'
 import { SearchInput } from '@/components/lib'
 import Select from '@/components/select'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function CountriesScreen() {
+  const navigate = useNavigate()
   return (
     <div>
       <DashHeader />
-      <div className="p-4"></div>
+      <div className="p-4">
+        <ul className="cards">
+          {countryList.map(country => (
+            <li
+              key={country.id}
+              className="card"
+              onClick={() => navigate(`${country.id}`)}
+            >
+              <div className="image" />
+              <h1 className="title">{country.name}</h1>
+              <div className="details">
+                <div>
+                  <span>Continent:</span>
+                  <span>Africa</span>
+                </div>
+                <div>
+                  <span>Capital:</span>
+                  <span>Luanda</span>
+                </div>
+                <div>
+                  <span>Population:</span>
+                  <span>13.455</span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
@@ -125,7 +154,7 @@ function DashHeader() {
       </div>
       <div>
         <ul
-          className="pl-4 pr-4 flex gap-4 overflow-y-auto"
+          className="pl-4 pr-4 flex gap-4 overflow-y-auto scrollbar-none"
           style={{ zIndex: '-1' }}
         >
           {continentList.map(c => (
@@ -197,3 +226,8 @@ const activityList = [
   'Snorkeling',
   'Whale watching',
 ].map((t, idx) => ({ id: idx + 1, name: t }))
+
+const countryList = Array.from({ length: 9 }, (_, idx) => ({
+  id: idx + 1,
+  name: `Country ${idx + 1}`,
+}))
