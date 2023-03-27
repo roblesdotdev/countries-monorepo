@@ -1,0 +1,50 @@
+.suggestions {
+  position: relative;
+  display: flex;
+}
+.suggestions-container {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.suggestions-list {
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: var(--bg-1st);
+
+  li {
+    padding: 0.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.empty {
+  background-color: var(--bg-1st);
+  color: #999;
+  padding: 0.5rem;
+  z-index: 999;
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
