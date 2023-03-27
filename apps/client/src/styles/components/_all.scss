@@ -5,3 +5,19 @@
 @import 'select';
 @import 'autocomplete';
 @import 'cards';
+
+.flag-image {
+  border-radius: 16px;
+}
+
+@media (min-width: 640px) {
+  .detail-card {
+    flex-direction: row;
+  }
+  .flag-image {
+    max-width: 540px;
+  }
+  .detail-card-list {
+    flex: 1 1 0%;
+  }
+}
