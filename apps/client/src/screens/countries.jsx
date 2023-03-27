@@ -6,16 +6,24 @@ import { usePagination } from '@/utils/hooks/pagination'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SimplePagination from '@/components/pagination'
+import { useCountries, useFetcher } from '@/utils/hooks/state'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
+  const { countries } = useCountries()
+  const { isFetching, error } = useFetcher()
   const { currentData, currentPage, numPages, actions } =
-    usePagination(countryList)
+    usePagination(countries)
 
   return (
     <div>
       <DashHeader />
       <div className="p-4">
+        {isFetching && !error
+          ? 'Loading...'
+          : error
+          ? JSON.stringify(error, null, 2)
+          : null}
         <ul className="cards">
           {currentData().map(country => (
             <li
@@ -23,7 +31,11 @@ export default function CountriesScreen() {
               className="card"
               onClick={() => navigate(`${country.id}`)}
             >
-              <div className="image" />
+              <img
+                src={country.flag_img}
+                alt={country.name}
+                className="flag-image w-full ratio-video"
+              />
               <h1 className="title">{country.name}</h1>
               <div className="details">
                 <div>
