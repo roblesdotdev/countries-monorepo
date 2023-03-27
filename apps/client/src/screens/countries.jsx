@@ -2,17 +2,22 @@ import Autocomplete from '@/components/autocomplete'
 import { FilterIcon, TrashIcon, XMarkIcon } from '@/components/icons'
 import { SearchInput } from '@/components/lib'
 import Select from '@/components/select'
+import { usePagination } from '@/utils/hooks/pagination'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SimplePagination from '@/components/pagination'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
+  const { currentData, currentPage, numPages, actions } =
+    usePagination(countryList)
+
   return (
     <div>
       <DashHeader />
       <div className="p-4">
         <ul className="cards">
-          {countryList.map(country => (
+          {currentData().map(country => (
             <li
               key={country.id}
               className="card"
@@ -37,6 +42,13 @@ export default function CountriesScreen() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="pt-4 pb-8">
+        <SimplePagination
+          currentPage={currentPage}
+          numPages={numPages}
+          actions={actions}
+        />
       </div>
     </div>
   )

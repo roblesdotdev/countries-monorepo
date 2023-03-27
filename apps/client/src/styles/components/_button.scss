@@ -30,4 +30,19 @@ $border-w: 0.2em;
     border: none;
     border-radius: 4px;
   }
+
+  &-default {
+    background-clip: none;
+    clip-path: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    -webkit-text-fill-color: currentColor;
+    background: var(--bg-2st);
+    color: var(--fg-1st);
+    border: none;
+
+    &:disabled {
+      color: var(--fg-muted);
+    }
+  }
 }
