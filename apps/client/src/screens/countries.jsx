@@ -239,7 +239,7 @@ const activityList = [
   'Whale watching',
 ].map((t, idx) => ({ id: idx + 1, name: t }))
 
-const countryList = Array.from({ length: 9 }, (_, idx) => ({
+export const countryList = Array.from({ length: 9 }, (_, idx) => ({
   id: idx + 1,
   name: `Country ${idx + 1}`,
 }))

@@ -3,6 +3,7 @@ import {
   CountriesScreen,
   CountryScreen,
   DashScreen,
+  NewActivityScreen,
   NotFoundScreen,
   WelcomeScreen,
 } from '@/screens'
@@ -17,6 +18,7 @@ export default function AppRouter() {
           <Route index element={<Navigate to="countries" />} />
           <Route path="countries" element={<CountriesScreen />} />
           <Route path="countries/:id" element={<CountryScreen />} />
+          <Route path="activities/new" element={<NewActivityScreen />} />
         </Route>
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>

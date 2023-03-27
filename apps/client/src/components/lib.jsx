@@ -1,3 +1,5 @@
+import { getFieldError } from '@/utils/validation'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SearchIcon } from './icons'
 
@@ -38,6 +40,42 @@ export function SearchInput() {
         placeholder="Search..."
         style={{ paddingRight: '48px' }}
       />
+    </div>
+  )
+}
+
+export function InputText({
+  name,
+  wasSubmitted,
+  pattern,
+  errorMessage,
+  ...other
+}) {
+  const [value, setValue] = useState('')
+  const [touched, setTouched] = useState(false)
+  const err = getFieldError({ name, value, pattern, errorMessage })
+  const displayErrorMessage = (wasSubmitted || touched) && err
+
+  const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
+
+  return (
+    <div key={name} {...other}>
+      <label htmlFor={`${name}-input`}>{capitalize(name)}</label>{' '}
+      <Input
+        id={`${name}-input`}
+        name={name}
+        type="text"
+        onChange={event => setValue(event.currentTarget.value)}
+        onBlur={() => setTouched(true)}
+        pattern={pattern}
+        required
+        aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
+      />
+      {displayErrorMessage ? (
+        <span role="alert" id={`${name}-error`} className="error-message">
+          {err}
+        </span>
+      ) : null}
     </div>
   )
 }

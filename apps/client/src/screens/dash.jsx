@@ -17,11 +17,18 @@ function Navbar() {
   return (
     <div>
       <nav className="flex items-center justify-between p-4 max-w">
-        <Link to="/">
+        <Link to="/dash">
           <Title text="Countries" size="small" />
         </Link>
 
         <div className="flex items-center gap-4">
+          <Link
+            className="btn btn-icon"
+            to="/dash/activities/new"
+            style={{ fontSize: '12px' }}
+          >
+            New Activity
+          </Link>
           <a
             href="https://github.com/roblesdotdev"
             target="_blank"

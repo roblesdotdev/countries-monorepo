@@ -43,7 +43,7 @@
   color: var(--fg-muted);
 }
 .fg-orange {
-  color: var(--color-orange);
+  color: var(--color-orange, orange);
 }
 .max-w {
   max-width: 1220px;
@@ -51,4 +51,9 @@
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.error-message {
+  color: var(--color-red, red);
+  font-size: 12px;
 }
