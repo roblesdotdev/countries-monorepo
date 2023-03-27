@@ -36,7 +36,12 @@ function NewActivityForm() {
   }
 
   return (
-    <form noValidate onSubmit={handleSubmit} className="create-form">
+    <form
+      autoComplete="off"
+      noValidate
+      onSubmit={handleSubmit}
+      className="create-form"
+    >
       <div className="form-container">
         {Object.keys(textFields).map(key => (
           <InputText
