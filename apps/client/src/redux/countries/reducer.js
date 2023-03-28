@@ -11,6 +11,7 @@ const countries = (
     },
     filterBy: {
       continent: 'all', // name | all
+      activities: [], // list activities
     },
   },
   action,
@@ -65,11 +66,21 @@ const countries = (
         },
       }
 
+    case types.SET_ACTIVITY_FILTER:
+      return {
+        ...state,
+        filterBy: {
+          ...state.filterBy,
+          activities: action.payload,
+        },
+      }
+
     case types.RESET_FILTER:
       return {
         ...state,
         filterBy: {
           continent: 'all',
+          activities: [],
         },
       }
 

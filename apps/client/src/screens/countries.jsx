@@ -63,8 +63,7 @@ function DashHeader() {
   const [open, setOpen] = useState(false)
   const { activities: allActivities } = useActivities()
   const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
-  const { continent, setContinent } = useFilter()
-  const [activities, setActivities] = useState([])
+  const { continent, setContinent, activities, setActivities } = useFilter()
   const hasFilters = alpha !== null || popu !== null || activities.length > 0
 
   const handleSelectActivity = activity => {

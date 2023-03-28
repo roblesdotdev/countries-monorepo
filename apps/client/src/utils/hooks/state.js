@@ -4,6 +4,7 @@ import {
   fetchCountryIfNeeded,
   resetFilter,
   resetOrder,
+  setActivityFilter,
   setAlphaOrder,
   setContinentFilter,
   setPopulationOrder,
@@ -76,10 +77,14 @@ export function useDetail(id) {
 export function useFilter() {
   const dispatch = useDispatch()
   const filterBy = useSelector(state => state.countries.filterBy)
-  const { continent } = filterBy
+  const { continent, activities } = filterBy
 
   const setContinent = continent => {
     dispatch(setContinentFilter(continent))
+  }
+
+  const setActivities = activities => {
+    dispatch(setActivityFilter(activities))
   }
 
   const resetAllFilters = () => {
@@ -89,6 +94,8 @@ export function useFilter() {
   return {
     continent,
     setContinent,
+    activities,
+    setActivities,
     resetFilter: resetAllFilters,
   }
 }

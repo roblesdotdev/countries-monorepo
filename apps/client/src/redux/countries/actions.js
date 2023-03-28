@@ -33,6 +33,11 @@ export const setContinentFilter = continent => ({
   payload: continent,
 })
 
+export const setActivityFilter = activities => ({
+  type: types.SET_ACTIVITY_FILTER,
+  payload: activities,
+})
+
 export const resetFilter = () => ({
   type: types.RESET_FILTER,
 })
