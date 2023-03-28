@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SimplePagination from '@/components/pagination'
 import {
+  useActivities,
   useCountries,
   useFetcher,
   useFilter,
@@ -60,6 +61,7 @@ export default function CountriesScreen() {
 
 function DashHeader() {
   const [open, setOpen] = useState(false)
+  const { activities: allActivities } = useActivities()
   const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
   const { continent, setContinent } = useFilter()
   const [activities, setActivities] = useState([])
@@ -145,7 +147,7 @@ function DashHeader() {
             <div className="flex flex-col gap-4">
               <Autocomplete
                 placeholder="Activities..."
-                suggestions={activityList}
+                suggestions={allActivities}
                 onSelect={handleSelectActivity}
               />
               {activities.length === 0 ? (
@@ -222,7 +224,8 @@ const continentList = [
   label: c,
 }))
 
-const activityList = [
+/*
+const allActivities = [
   'Visit to museums and historical monuments',
   'City tour',
   'Nature tour',
@@ -244,6 +247,7 @@ const activityList = [
   'Snorkeling',
   'Whale watching',
 ].map((t, idx) => ({ id: idx + 1, name: t }))
+*/
 
 export const countryList = Array.from({ length: 9 }, (_, idx) => ({
   id: idx + 1,

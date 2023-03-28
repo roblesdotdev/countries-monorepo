@@ -4,6 +4,7 @@ const countries = (
   state = {
     items: [],
     current: null,
+    shouldRevalidate: true,
     orderBy: {
       alpha: null, // desc | asc | null
       population: null, // desc | asc | null
@@ -18,6 +19,7 @@ const countries = (
     case types.RECEIVE_COUNTRIES:
       return {
         ...state,
+        shouldRevalidate: false,
         items: action.payload,
       }
 

@@ -1,3 +1,4 @@
+import { fetchActivitiesIfNeeded } from '@/redux/activities/actions'
 import {
   fetchCountriesIfNeeded,
   fetchCountryIfNeeded,
@@ -49,11 +50,12 @@ export function useOrder() {
 
 export function useCountries() {
   const countries = useSelector(filteredAndSortedCountries)
+  const { isFetching, error } = useFetcher()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchCountriesIfNeeded())
-  }, [dispatch])
+    if (!isFetching && !error) dispatch(fetchCountriesIfNeeded())
+  }, [isFetching, dispatch])
 
   return {
     countries,
@@ -88,5 +90,19 @@ export function useFilter() {
     continent,
     setContinent,
     resetFilter: resetAllFilters,
+  }
+}
+
+export function useActivities() {
+  const dispatch = useDispatch()
+  const activities = useSelector(state => state.activities.items)
+  const { isFetching, error } = useFetcher()
+
+  useEffect(() => {
+    if (!isFetching && !error) dispatch(fetchActivitiesIfNeeded())
+  }, [isFetching, dispatch])
+
+  return {
+    activities,
   }
 }

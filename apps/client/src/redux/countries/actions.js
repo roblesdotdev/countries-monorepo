@@ -59,11 +59,7 @@ const fetchCountry = countryID => dispatch => {
 }
 
 const shouldFetchCountries = state => {
-  const countries = state.countries
-  if (state.fetcher.isFetching) {
-    return false
-  }
-  return !countries.items.length
+  return state.countries.shouldRevalidate
 }
 
 const shouldFetchCountry = (countryID, state) => {
