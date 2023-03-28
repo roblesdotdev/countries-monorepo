@@ -53,7 +53,7 @@ export function InputText({
 }) {
   const [value, setValue] = useState('')
   const [touched, setTouched] = useState(false)
-  const err = getFieldError({ name, value, pattern, errorMessage })
+  let err = getFieldError({ name, value, pattern, errorMessage })
   const displayErrorMessage = (wasSubmitted || touched) && err
 
   const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
