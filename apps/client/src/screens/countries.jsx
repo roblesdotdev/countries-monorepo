@@ -6,16 +6,29 @@ import { usePagination } from '@/utils/hooks/pagination'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SimplePagination from '@/components/pagination'
+import {
+  useCountries,
+  useFetcher,
+  useFilter,
+  useOrder,
+} from '@/utils/hooks/state'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
+  const { countries } = useCountries()
+  const { isFetching, error } = useFetcher()
   const { currentData, currentPage, numPages, actions } =
-    usePagination(countryList)
+    usePagination(countries)
 
   return (
     <div>
       <DashHeader />
       <div className="p-4">
+        {isFetching && !error
+          ? 'Loading...'
+          : error
+          ? JSON.stringify(error, null, 2)
+          : null}
         <ul className="cards">
           {currentData().map(country => (
             <li
@@ -23,22 +36,13 @@ export default function CountriesScreen() {
               className="card"
               onClick={() => navigate(`${country.id}`)}
             >
-              <div className="image" />
-              <h1 className="title">{country.name}</h1>
-              <div className="details">
-                <div>
-                  <span>Continent:</span>
-                  <span>Africa</span>
-                </div>
-                <div>
-                  <span>Capital:</span>
-                  <span>Luanda</span>
-                </div>
-                <div>
-                  <span>Population:</span>
-                  <span>13.455</span>
-                </div>
-              </div>
+              <img
+                src={country.flag_img}
+                alt={country.name}
+                className="flag-image w-full ratio-video"
+              />
+              <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
+              <h2 className="text-md fg-muted">{country.continent}</h2>
             </li>
           ))}
         </ul>
@@ -56,10 +60,10 @@ export default function CountriesScreen() {
 
 function DashHeader() {
   const [open, setOpen] = useState(false)
-  const [alpha, setAlpha] = useState('')
-  const [popu, setPopu] = useState('')
-  const [continent, setContinent] = useState('all')
+  const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
+  const { continent, setContinent } = useFilter()
   const [activities, setActivities] = useState([])
+  const hasFilters = alpha !== null || popu !== null || activities.length > 0
 
   const handleSelectActivity = activity => {
     const found = activities.find(a => a.id === activity.id)
@@ -74,10 +78,13 @@ function DashHeader() {
           <SearchInput />
         </form>
         <button
-          className="btn btn-link"
+          className="btn btn-link relative"
           style={{ background: 'rgba(255, 255, 255, 0.04)' }}
           onClick={() => setOpen(!open)}
         >
+          {hasFilters ? (
+            <span className="absolute w-2 h-2 rounded-full top-0 left-0 bg-orange z-50" />
+          ) : null}
           {open ? <XMarkIcon /> : <FilterIcon />}
         </button>
       </div>
@@ -98,8 +105,7 @@ function DashHeader() {
                 <button
                   className="fg-orange"
                   onClick={() => {
-                    setPopu('')
-                    setAlpha('')
+                    resetOrder()
                   }}
                 >
                   <TrashIcon />
@@ -112,14 +118,14 @@ function DashHeader() {
                 onChange={setAlpha}
                 id="sort-alpha"
                 label="Alphabetically"
-                value={alpha}
+                value={alpha || ''}
               />
               <Select
                 options={popuOptions}
                 onChange={setPopu}
                 id="sort-popu"
                 label="Population"
-                value={popu}
+                value={popu || ''}
               />
             </div>
           </div>
@@ -199,20 +205,20 @@ const alphaOptions = [
   { value: 'desc', label: 'Descending - [Zz-Aa]' },
 ]
 const popuOptions = [
-  { value: 'high', label: 'Higher population' },
-  { value: 'low', label: 'Lower Population' },
+  { value: 'asc', label: 'Higher population' },
+  { value: 'desc', label: 'Lower Population' },
 ]
 const continentList = [
   'All',
   'Africa',
-  'Antartica',
+  'Antarctica',
   'Asia',
-  'Europe',
-  'North America',
-  'Oceania',
   'South America',
+  'North America',
+  'Europe',
+  'Oceania',
 ].map(c => ({
-  value: c.toLocaleLowerCase().split(' ').join('-'),
+  value: c.toLowerCase(),
   label: c,
 }))
 

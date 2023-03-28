@@ -1,26 +1,11 @@
+import { useDetail, useFetcher } from '@/utils/hooks/state'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
-const getCountry = id => ({
-  id,
-  name: 'Country Name',
-  continent: 'Africa',
-  capital: 'Angola',
-  population: 2312312,
-  area: 321231,
-  // activities: [],
-  activities: [
-    {
-      id: 1,
-      name: 'Surf',
-    },
-    { id: 2, name: 'Skate' },
-  ],
-})
-
 export default function CountryScreen() {
   const { id } = useParams()
-  const currentCountry = getCountry(id)
+  const { country: currentCountry } = useDetail(id)
+  const { isFetching, error } = useFetcher()
   const navigate = useNavigate()
 
   return (
@@ -30,7 +15,13 @@ export default function CountryScreen() {
           Back
         </button>
       </div>
-      <CountryDetail country={currentCountry} />
+      {!isFetching && currentCountry ? (
+        <CountryDetail country={currentCountry} />
+      ) : isFetching && !error ? (
+        'Loading...'
+      ) : (
+        JSON.stringify(error, null, 2)
+      )}
     </div>
   )
 }
@@ -41,9 +32,7 @@ function CountryDetail({ country }) {
   return (
     <div className="">
       <div className="w-full flex flex-col gap-4 detail-card pt-4">
-        {/*"<img alt={country.name} src={country.flag_img} /> */}
-
-        <div className="flag-image ratio-video w-full bg-2st" />
+        <img alt={country.name} src={country.flag_img} className="flag-image" />
         <div className="detail-card-list">
           <h1 className="text-xl mb-2">{country.name}</h1>
           <h2 className="text-lg fg-muted">{country.continent}</h2>
