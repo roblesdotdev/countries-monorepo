@@ -6,7 +6,12 @@ import { usePagination } from '@/utils/hooks/pagination'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SimplePagination from '@/components/pagination'
-import { useCountries, useFetcher, useOrder } from '@/utils/hooks/state'
+import {
+  useCountries,
+  useFetcher,
+  useFilter,
+  useOrder,
+} from '@/utils/hooks/state'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
@@ -56,7 +61,7 @@ export default function CountriesScreen() {
 function DashHeader() {
   const [open, setOpen] = useState(false)
   const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
-  const [continent, setContinent] = useState('all')
+  const { continent, setContinent } = useFilter()
   const [activities, setActivities] = useState([])
 
   const handleSelectActivity = activity => {
@@ -202,14 +207,14 @@ const popuOptions = [
 const continentList = [
   'All',
   'Africa',
-  'Antartica',
+  'Antarctica',
   'Asia',
-  'Europe',
-  'North America',
-  'Oceania',
   'South America',
+  'North America',
+  'Europe',
+  'Oceania',
 ].map(c => ({
-  value: c.toLocaleLowerCase().split(' ').join('-'),
+  value: c.toLowerCase(),
   label: c,
 }))
 

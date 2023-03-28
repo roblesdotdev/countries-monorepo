@@ -1,10 +1,4 @@
-export function sortedCountries(state) {
-  const orderBy = state.countries.orderBy
-  const items = state.countries.items
-  return sort(items, orderBy)
-}
-
-function sort(items, orderBy) {
+export function sortedCountries(items, orderBy) {
   const alphaOrdered = orderBy.alpha ? alphaOrder(items, orderBy.alpha) : items
   return orderBy.population
     ? populationOrder(alphaOrdered, orderBy.population)

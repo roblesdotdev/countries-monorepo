@@ -8,6 +8,9 @@ const countries = (
       alpha: null, // desc | asc | null
       population: null, // desc | asc | null
     },
+    filterBy: {
+      continent: 'all', // name | all
+    },
   },
   action,
 ) => {
@@ -48,6 +51,23 @@ const countries = (
         orderBy: {
           alpha: null,
           population: null,
+        },
+      }
+
+    case types.SET_CONTINENT_FILTER:
+      return {
+        ...state,
+        filterBy: {
+          ...state.filterBy,
+          continent: action.payload,
+        },
+      }
+
+    case types.RESET_FILTER:
+      return {
+        ...state,
+        filterBy: {
+          continent: 'all',
         },
       }
 

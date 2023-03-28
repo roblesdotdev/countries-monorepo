@@ -1,13 +1,15 @@
 import {
   fetchCountriesIfNeeded,
   fetchCountryIfNeeded,
+  resetFilter,
   resetOrder,
   setAlphaOrder,
+  setContinentFilter,
   setPopulationOrder,
 } from '@/redux/countries/actions'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { sortedCountries } from '../selectors/sort'
+import { filteredAndSortedCountries } from '../selectors'
 
 export function useFetcher() {
   const isFetching = useSelector(state => state.fetcher.isFetching)
@@ -46,7 +48,7 @@ export function useOrder() {
 }
 
 export function useCountries() {
-  const countries = useSelector(sortedCountries)
+  const countries = useSelector(filteredAndSortedCountries)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -67,4 +69,24 @@ export function useDetail(id) {
   }, [id])
 
   return { country }
+}
+
+export function useFilter() {
+  const dispatch = useDispatch()
+  const filterBy = useSelector(state => state.countries.filterBy)
+  const { continent } = filterBy
+
+  const setContinent = continent => {
+    dispatch(setContinentFilter(continent))
+  }
+
+  const resetAllFilters = () => {
+    dispatch(resetFilter())
+  }
+
+  return {
+    continent,
+    setContinent,
+    resetFilter: resetAllFilters,
+  }
 }

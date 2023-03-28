@@ -27,6 +27,16 @@ export const resetOrder = () => ({
   type: types.RESET_ORDER,
 })
 
+/* FILTERING */
+export const setContinentFilter = continent => ({
+  type: types.SET_CONTINENT_FILTER,
+  payload: continent,
+})
+
+export const resetFilter = () => ({
+  type: types.RESET_FILTER,
+})
+
 // Not use directly fetchCountries
 const fetchCountries = query => dispatch => {
   dispatch(fetchStart())
