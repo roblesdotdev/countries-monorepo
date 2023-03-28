@@ -134,10 +134,7 @@ function DashHeader() {
             <h3 className="text-sm fg-muted mb-4 flex items-center gap-2">
               <span>Filters</span>
               {activities.length > 0 ? (
-                <button
-                  className="color-orange"
-                  onClick={() => setActivities([])}
-                >
+                <button className="fg-orange" onClick={() => setActivities([])}>
                   <TrashIcon />
                 </button>
               ) : null}
