@@ -12,6 +12,21 @@ const receiveCountryDetail = data => ({
   payload: data,
 })
 
+/* ORDERING */
+export const setAlphaOrder = order => ({
+  type: types.SET_ALPHA_ORDER,
+  payload: order,
+})
+
+export const setPopulationOrder = order => ({
+  type: types.SET_POPULATION_ORDER,
+  payload: order,
+})
+
+export const resetOrder = () => ({
+  type: types.RESET_ORDER,
+})
+
 // Not use directly fetchCountries
 const fetchCountries = query => dispatch => {
   dispatch(fetchStart())

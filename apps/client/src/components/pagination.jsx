@@ -47,7 +47,7 @@ export default function SimplePagination({ currentPage, numPages, actions }) {
       >
         <input
           className="input"
-          style={{ width: '84px' }}
+          style={{ width: '90px' }}
           type="number"
           min={1}
           max={numPages}

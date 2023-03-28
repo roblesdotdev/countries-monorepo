@@ -6,7 +6,7 @@ import { usePagination } from '@/utils/hooks/pagination'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SimplePagination from '@/components/pagination'
-import { useCountries, useFetcher } from '@/utils/hooks/state'
+import { useCountries, useFetcher, useOrder } from '@/utils/hooks/state'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
@@ -36,21 +36,8 @@ export default function CountriesScreen() {
                 alt={country.name}
                 className="flag-image w-full ratio-video"
               />
-              <h1 className="title">{country.name}</h1>
-              <div className="details">
-                <div>
-                  <span>Continent:</span>
-                  <span>Africa</span>
-                </div>
-                <div>
-                  <span>Capital:</span>
-                  <span>Luanda</span>
-                </div>
-                <div>
-                  <span>Population:</span>
-                  <span>13.455</span>
-                </div>
-              </div>
+              <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
+              <h2 className="text-md fg-muted">{country.continent}</h2>
             </li>
           ))}
         </ul>
@@ -68,8 +55,7 @@ export default function CountriesScreen() {
 
 function DashHeader() {
   const [open, setOpen] = useState(false)
-  const [alpha, setAlpha] = useState('')
-  const [popu, setPopu] = useState('')
+  const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
   const [continent, setContinent] = useState('all')
   const [activities, setActivities] = useState([])
 
@@ -110,8 +96,7 @@ function DashHeader() {
                 <button
                   className="fg-orange"
                   onClick={() => {
-                    setPopu('')
-                    setAlpha('')
+                    resetOrder()
                   }}
                 >
                   <TrashIcon />
@@ -124,14 +109,14 @@ function DashHeader() {
                 onChange={setAlpha}
                 id="sort-alpha"
                 label="Alphabetically"
-                value={alpha}
+                value={alpha || ''}
               />
               <Select
                 options={popuOptions}
                 onChange={setPopu}
                 id="sort-popu"
                 label="Population"
-                value={popu}
+                value={popu || ''}
               />
             </div>
           </div>
@@ -211,8 +196,8 @@ const alphaOptions = [
   { value: 'desc', label: 'Descending - [Zz-Aa]' },
 ]
 const popuOptions = [
-  { value: 'high', label: 'Higher population' },
-  { value: 'low', label: 'Lower Population' },
+  { value: 'asc', label: 'Higher population' },
+  { value: 'desc', label: 'Lower Population' },
 ]
 const continentList = [
   'All',

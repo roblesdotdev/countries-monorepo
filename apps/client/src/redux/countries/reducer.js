@@ -4,6 +4,10 @@ const countries = (
   state = {
     items: [],
     current: null,
+    orderBy: {
+      alpha: null, // desc | asc | null
+      population: null, // desc | asc | null
+    },
   },
   action,
 ) => {
@@ -18,6 +22,33 @@ const countries = (
       return {
         ...state,
         current: action.payload,
+      }
+
+    case types.SET_ALPHA_ORDER:
+      return {
+        ...state,
+        orderBy: {
+          ...state.orderBy,
+          alpha: action.payload,
+        },
+      }
+
+    case types.SET_POPULATION_ORDER:
+      return {
+        ...state,
+        orderBy: {
+          ...state.orderBy,
+          population: action.payload,
+        },
+      }
+
+    case types.RESET_ORDER:
+      return {
+        ...state,
+        orderBy: {
+          alpha: null,
+          population: null,
+        },
       }
 
     default:

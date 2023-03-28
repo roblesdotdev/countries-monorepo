@@ -11,7 +11,7 @@ const isPostgres = DB_DIALECT === "postgres";
 async function getDbCountries(query) {
   const queryConfig = {
     attributes: ["id", "name", "flag_img", "continent", "population"],
-    order: [["name", "ASC"]],
+    // order: [["name", "ASC"]],
     include: {
       model: Activity,
       attributes: ["id"],

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useCallback } from 'react'
 
-function usePagination(data = [], { itemsPerPage = 8, page = 1 } = {}) {
+function usePagination(data = [], { itemsPerPage = 10, page = 1 } = {}) {
   const [currentPage, setCurrentPage] = useState(page)
-  let numPages = Math.floor(data.length / itemsPerPage) + 1
+  let numPages = Math.ceil(data.length / itemsPerPage)
 
   function currentData() {
     const offset = (currentPage - 1) * itemsPerPage
