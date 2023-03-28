@@ -5,10 +5,10 @@ export function sortedCountries(state) {
 }
 
 function sort(items, orderBy) {
-  const popOrdered = orderBy.population
-    ? populationOrder(items, orderBy.population)
-    : items
-  return orderBy.alpha ? alphaOrder(popOrdered, orderBy.alpha) : popOrdered
+  const alphaOrdered = orderBy.alpha ? alphaOrder(items, orderBy.alpha) : items
+  return orderBy.population
+    ? populationOrder(alphaOrdered, orderBy.population)
+    : alphaOrdered
 }
 
 function alphaOrder(items, orderBy) {
