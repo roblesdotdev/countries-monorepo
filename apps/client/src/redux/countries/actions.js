@@ -33,6 +33,11 @@ export const setContinentFilter = continent => ({
   payload: continent,
 })
 
+export const setActivityFilter = activities => ({
+  type: types.SET_ACTIVITY_FILTER,
+  payload: activities,
+})
+
 export const resetFilter = () => ({
   type: types.RESET_FILTER,
 })
@@ -59,11 +64,7 @@ const fetchCountry = countryID => dispatch => {
 }
 
 const shouldFetchCountries = state => {
-  const countries = state.countries
-  if (state.fetcher.isFetching) {
-    return false
-  }
-  return !countries.items.length
+  return state.countries.shouldRevalidate
 }
 
 const shouldFetchCountry = (countryID, state) => {

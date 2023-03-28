@@ -1,8 +1,10 @@
+import { fetchActivitiesIfNeeded } from '@/redux/activities/actions'
 import {
   fetchCountriesIfNeeded,
   fetchCountryIfNeeded,
   resetFilter,
   resetOrder,
+  setActivityFilter,
   setAlphaOrder,
   setContinentFilter,
   setPopulationOrder,
@@ -49,11 +51,12 @@ export function useOrder() {
 
 export function useCountries() {
   const countries = useSelector(filteredAndSortedCountries)
+  const { isFetching, error } = useFetcher()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchCountriesIfNeeded())
-  }, [dispatch])
+    if (!isFetching && !error) dispatch(fetchCountriesIfNeeded())
+  }, [isFetching, dispatch])
 
   return {
     countries,
@@ -74,10 +77,14 @@ export function useDetail(id) {
 export function useFilter() {
   const dispatch = useDispatch()
   const filterBy = useSelector(state => state.countries.filterBy)
-  const { continent } = filterBy
+  const { continent, activities } = filterBy
 
   const setContinent = continent => {
     dispatch(setContinentFilter(continent))
+  }
+
+  const setActivities = activities => {
+    dispatch(setActivityFilter(activities))
   }
 
   const resetAllFilters = () => {
@@ -87,6 +94,22 @@ export function useFilter() {
   return {
     continent,
     setContinent,
+    activities,
+    setActivities,
     resetFilter: resetAllFilters,
+  }
+}
+
+export function useActivities() {
+  const dispatch = useDispatch()
+  const activities = useSelector(state => state.activities.items)
+  const { isFetching, error } = useFetcher()
+
+  useEffect(() => {
+    if (!isFetching && !error) dispatch(fetchActivitiesIfNeeded())
+  }, [isFetching, dispatch])
+
+  return {
+    activities,
   }
 }

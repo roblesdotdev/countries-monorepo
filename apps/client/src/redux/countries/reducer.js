@@ -4,12 +4,14 @@ const countries = (
   state = {
     items: [],
     current: null,
+    shouldRevalidate: true,
     orderBy: {
       alpha: null, // desc | asc | null
       population: null, // desc | asc | null
     },
     filterBy: {
       continent: 'all', // name | all
+      activities: [], // list activities
     },
   },
   action,
@@ -18,6 +20,7 @@ const countries = (
     case types.RECEIVE_COUNTRIES:
       return {
         ...state,
+        shouldRevalidate: false,
         items: action.payload,
       }
 
@@ -63,11 +66,21 @@ const countries = (
         },
       }
 
+    case types.SET_ACTIVITY_FILTER:
+      return {
+        ...state,
+        filterBy: {
+          ...state.filterBy,
+          activities: action.payload,
+        },
+      }
+
     case types.RESET_FILTER:
       return {
         ...state,
         filterBy: {
           continent: 'all',
+          activities: [],
         },
       }
 
