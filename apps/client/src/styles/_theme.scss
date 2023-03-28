@@ -45,6 +45,9 @@
 .fg-orange {
   color: var(--color-orange, orange);
 }
+.bg-orange {
+  background: var(--color-orange, orange);
+}
 .max-w {
   max-width: 1220px;
   margin: 0 auto;
@@ -56,4 +59,8 @@
 .error-message {
   color: var(--color-red, red);
   font-size: 12px;
+}
+
+.rounded-full {
+  border-radius: 100%;
 }

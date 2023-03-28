@@ -63,6 +63,7 @@ function DashHeader() {
   const { alpha, popu, setAlpha, setPopu, resetOrder } = useOrder()
   const { continent, setContinent } = useFilter()
   const [activities, setActivities] = useState([])
+  const hasFilters = alpha !== null || popu !== null || activities.length > 0
 
   const handleSelectActivity = activity => {
     const found = activities.find(a => a.id === activity.id)
@@ -77,10 +78,13 @@ function DashHeader() {
           <SearchInput />
         </form>
         <button
-          className="btn btn-link"
+          className="btn btn-link relative"
           style={{ background: 'rgba(255, 255, 255, 0.04)' }}
           onClick={() => setOpen(!open)}
         >
+          {hasFilters ? (
+            <span className="absolute w-2 h-2 rounded-full top-0 left-0 bg-orange z-50" />
+          ) : null}
           {open ? <XMarkIcon /> : <FilterIcon />}
         </button>
       </div>
