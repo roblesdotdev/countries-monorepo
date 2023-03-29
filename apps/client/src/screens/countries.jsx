@@ -13,23 +13,33 @@ import {
   useFilter,
   useOrder,
 } from '@/utils/hooks/state'
+import { FallbackCountries } from '@/components/fallback'
+import { useEffect } from 'react'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
   const { countries } = useCountries()
   const { isFetching, error } = useFetcher()
+  const [showSpin, setShowSpin] = useState(true)
   const { currentData, currentPage, numPages, actions } =
     usePagination(countries)
+
+  useEffect(() => {
+    const t1 = setTimeout(() => {
+      setShowSpin(false)
+    }, 1000)
+    return () => clearTimeout(t1)
+  })
 
   return (
     <div>
       <DashHeader />
       <div className="p-4">
-        {isFetching && !error
-          ? 'Loading...'
-          : error
-          ? JSON.stringify(error, null, 2)
-          : null}
+        {(isFetching || showSpin) && !error ? (
+          <FallbackCountries />
+        ) : error ? (
+          JSON.stringify(error, null, 2)
+        ) : null}
         <ul className="cards">
           {currentData().map(country => (
             <li
