@@ -2,8 +2,12 @@ import { InputText } from '@/components/lib'
 import Select from '@/components/select'
 import Autocomplete from '@/components/autocomplete'
 import { useState } from 'react'
-import { countryList } from './countries'
 import { XMarkIcon } from '@/components/icons'
+import { useDispatch } from 'react-redux'
+import { getFieldError } from '@/utils/validation'
+import { useCountries } from '@/utils/hooks/state'
+import { useNavigate } from 'react-router-dom'
+import { createNewActivity } from '@/redux/activities/actions'
 
 export default function CreateForm() {
   return (
@@ -17,8 +21,11 @@ function NewActivityForm() {
   const [wasSubmitted, setWasSubmitted] = useState(false)
   const [countriesList, setCountriesList] = useState([])
   const [season, setSeason] = useState('')
+  const { countries } = useCountries()
+  const dispatch = useDispatch()
   const isValidCountriesList = countriesList && countriesList.length
   const isValidSeason = season !== ''
+  const navigate = useNavigate()
 
   const addCountryToList = country => {
     const find = countriesList.find(c => country.id === c.id)
@@ -31,8 +38,32 @@ function NewActivityForm() {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const fieldValues = Object.fromEntries(formData.entries())
+    const isValidTextFields = Object.keys(textFields).every(key => {
+      const { pattern, errorMessage } = textFields[key]
+      return !getFieldError({
+        name: key,
+        value: fieldValues[key],
+        pattern,
+        errorMessage,
+      })
+    })
+
     setWasSubmitted(true)
-    alert('Created')
+
+    if (isValidTextFields && isValidCountriesList) {
+      const data = {
+        ...fieldValues,
+        countries: countriesList.map(c => c.id),
+      }
+      e.currentTarget.reset()
+      setCountriesList([])
+      setWasSubmitted(false)
+      dispatch(createNewActivity(data))
+      navigate('/dash/countries')
+    }
   }
 
   return (
@@ -91,7 +122,7 @@ function NewActivityForm() {
 
         <div className="form-field">
           <label htmlFor="countriesIDs">Countries</label>
-          <Autocomplete onSelect={addCountryToList} suggestions={countryList} />
+          <Autocomplete onSelect={addCountryToList} suggestions={countries} />
         </div>
 
         <div className="pb-6">
@@ -130,7 +161,7 @@ function NewActivityForm() {
 
 export const listSeasons = ['Summer', 'Aurumn', 'Spring', 'Winter'].map(
   val => ({
-    value: val.toLocaleLowerCase(),
+    value: val,
     label: val,
   }),
 )
