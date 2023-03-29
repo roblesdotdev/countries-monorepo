@@ -32,7 +32,14 @@ function CountryDetail({ country }) {
   return (
     <div className="">
       <div className="w-full flex flex-col gap-4 detail-card pt-4">
-        <img alt={country.name} src={country.flag_img} className="flag-image" />
+        <img
+          alt={country.name}
+          src={country.flag_img}
+          className="flag-image"
+          style={{
+            maxHeight: '250px',
+          }}
+        />
         <div className="detail-card-list">
           <h1 className="text-xl mb-2">{country.name}</h1>
           <h2 className="text-lg fg-muted">{country.continent}</h2>
@@ -51,11 +58,11 @@ function CountryDetail({ country }) {
             {hasActivities ? (
               <>
                 <h3 className="fg-muted text-base">Activities</h3>
-                <ul className="flex gap-4 items-center pt-4 pb-4">
+                <ul className="flex gap-4 items-center pt-4 pb-4 flex-wrap">
                   {country.activities.map(a => (
                     <li key={a.id}>
                       <button
-                        className="btn btn-default"
+                        className="btn btn-default white-nowrap"
                         style={{ fontSize: '12px' }}
                       >
                         {a.name}
