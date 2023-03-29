@@ -5,17 +5,17 @@
  *
  */
 function errorBuilder(_req, res, next) {
-  res.jsonError = function (message = "Something went wrong", status = 400) {
+  res.jsonError = function (message = 'Something went wrong', status = 400) {
     return res.status(status).json({
       success: false,
       status,
       error: {
         message,
       },
-    });
-  };
+    })
+  }
 
-  next();
+  next()
 }
 
 /**
@@ -30,13 +30,13 @@ function successBuilder(_req, res, next) {
       success: true,
       status,
       data: data,
-    });
-  };
+    })
+  }
 
-  next();
+  next()
 }
 
 module.exports = {
   errorBuilder,
   successBuilder,
-};
+}

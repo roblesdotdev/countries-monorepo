@@ -1,10 +1,10 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize')
 
-const SEASONS = ["Summer", "Aurumn", "Spring", "Winter"];
+const SEASONS = ['Summer', 'Aurumn', 'Spring', 'Winter']
 
-module.exports = (sequelize) => {
+module.exports = sequelize => {
   sequelize.define(
-    "activity",
+    'activity',
     {
       name: {
         type: DataTypes.STRING,
@@ -35,6 +35,6 @@ module.exports = (sequelize) => {
     },
     {
       timestamps: false,
-    }
-  );
-};
+    },
+  )
+}

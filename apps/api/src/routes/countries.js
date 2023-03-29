@@ -1,13 +1,13 @@
-const express = require("express");
-const { getAllCountries, getCountry } = require("../controllers/countries");
+const express = require('express')
+const { getAllCountries, getCountry } = require('../controllers/countries')
 
 function getCountriesRoutes() {
-  const router = express.Router();
+  const router = express.Router()
 
-  router.route("/").get(getAllCountries);
-  router.route("/:id").get(getCountry);
+  router.route('/').get(getAllCountries)
+  router.route('/:id').get(getCountry)
 
-  return router;
+  return router
 }
 
-module.exports = getCountriesRoutes;
+module.exports = getCountriesRoutes

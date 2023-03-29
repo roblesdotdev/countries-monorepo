@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon src/start.js",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,ts ."
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
+    "prettier": "prettier --ignore-path .eslintignore \"**/*.+(js|jsx|css|ts|tsx)\"",
+    "format": "npm run prettier -- --write"
   },
   "author": "Aldo R. Robles",
   "license": "ISC",
@@ -21,7 +23,10 @@
   "devDependencies": {
     "dotenv": "^16.0.3",
     "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "prettier": "^2.8.6"
   }
 }

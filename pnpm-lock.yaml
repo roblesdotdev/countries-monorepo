@@ -13,11 +13,14 @@ importers:
       cors: ^2.8.5
       dotenv: ^16.0.3
       eslint: ^8.36.0
+      eslint-config-prettier: ^8.8.0
+      eslint-plugin-prettier: ^4.2.1
       express: ^4.18.2
       express-async-errors: ^3.1.1
       loglevel: ^1.8.1
       morgan: ^1.10.0
       nodemon: ^2.0.21
+      prettier: ^2.8.6
       sequelize: ^6.29.3
       sqlite3: ^5.1.4
     dependencies:
@@ -30,8 +33,11 @@ importers:
     devDependencies:
       dotenv: 16.0.3
       eslint: 8.36.0
+      eslint-config-prettier: 8.8.0_eslint@8.36.0
+      eslint-plugin-prettier: 4.2.1_ose2zoovovx4ulolhifz3tfzx4
       morgan: 1.10.0
       nodemon: 2.0.21
+      prettier: 2.8.6
 
   apps/client:
     specifiers:

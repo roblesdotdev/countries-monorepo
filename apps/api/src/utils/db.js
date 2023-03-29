@@ -1,30 +1,30 @@
-const sequelize = require("sequelize");
-const { Activity, Country } = require("../db");
+const sequelize = require('sequelize')
+const { Activity, Country } = require('../db')
 
-const { DB_DIALECT } = require("../config");
+const { DB_DIALECT } = require('../config')
 
-const isPostgres = DB_DIALECT === "postgres";
+const isPostgres = DB_DIALECT === 'postgres'
 
 /**
  * @param query string
  */
 async function getDbCountries(query) {
   const queryConfig = {
-    attributes: ["id", "name", "flag_img", "continent", "population"],
+    attributes: ['id', 'name', 'flag_img', 'continent', 'population'],
     // order: [["name", "ASC"]],
     include: {
       model: Activity,
-      attributes: ["id"],
+      attributes: ['id'],
       through: { attributes: [] },
     },
-  };
+  }
   if (query)
     queryConfig.where = isPostgres
       ? { name: { [sequelize.Op.iLike]: `%${query}%` } }
-      : sequelize.where(sequelize.fn("lower", sequelize.col("Country.name")), {
+      : sequelize.where(sequelize.fn('lower', sequelize.col('Country.name')), {
           [sequelize.Op.like]: `%${query}%`,
-        });
-  return Country.findAndCountAll(queryConfig);
+        })
+  return Country.findAndCountAll(queryConfig)
 }
 
 /**
@@ -33,7 +33,7 @@ async function getDbCountries(query) {
 async function countDbCountries(countries) {
   return Country.count({
     where: { id: { [sequelize.Op.in]: countries } },
-  });
+  })
 }
 
 /**
@@ -48,7 +48,7 @@ async function findOrCreateDbActivity(name, formData) {
     defaults: {
       ...formData,
     },
-  });
+  })
 }
 
 async function getDbActivityById(id) {
@@ -57,13 +57,13 @@ async function getDbActivityById(id) {
       model: Country,
       through: { attributes: [] },
     },
-  });
+  })
 }
 
 async function getDbActivities() {
   return Activity.findAll({
-    order: [["id", "DESC"]],
-  });
+    order: [['id', 'DESC']],
+  })
 }
 
 async function getDbCountryById(countryId) {
@@ -72,7 +72,7 @@ async function getDbCountryById(countryId) {
       model: Activity,
       through: { attributes: [] },
     },
-  });
+  })
 }
 
 module.exports = {
@@ -82,4 +82,4 @@ module.exports = {
   findOrCreateDbActivity,
   getDbActivityById,
   getDbActivities,
-};
+}

@@ -1,19 +1,19 @@
-const express = require("express");
+const express = require('express')
 const {
   createActivity,
   getAllActivities,
   getActivity,
-} = require("../controllers/activities");
-const validateForm = require("../middlewares/validation");
+} = require('../controllers/activities')
+const validateForm = require('../middlewares/validation')
 
 function getActivitiesRoutes() {
-  const router = express();
+  const router = express()
 
-  router.route("/").get(getAllActivities).post(validateForm, createActivity);
+  router.route('/').get(getAllActivities).post(validateForm, createActivity)
 
-  router.route("/:id").get(getActivity);
+  router.route('/:id').get(getActivity)
 
-  return router;
+  return router
 }
 
-module.exports = getActivitiesRoutes;
+module.exports = getActivitiesRoutes

@@ -1,21 +1,21 @@
 function hasRequiredFields(fields, obj) {
   for (const f of fields) {
     if (!obj[f]) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }
 
 function validateForm(req, res, next) {
-  const required = ["name", "difficulty", "duration", "season"];
+  const required = ['name', 'difficulty', 'duration', 'season']
   if (!hasRequiredFields(required, req.body)) {
-    return res.jsonError(400, `${required.join(", ")} are required`);
+    return res.jsonError(400, `${required.join(', ')} are required`)
   }
-  const { name, difficulty, duration, season, countries } = req.body;
+  const { name, difficulty, duration, season, countries } = req.body
 
   if (!Array.isArray(countries) || !countries.length) {
-    return res.jsonError(400, "countries is required and must be an array");
+    return res.jsonError(400, 'countries is required and must be an array')
   }
 
   res.form = {
@@ -23,8 +23,8 @@ function validateForm(req, res, next) {
     difficulty: +difficulty,
     duration: duration.trim(),
     season: season.trim(),
-  };
-  next();
+  }
+  next()
 }
 
-module.exports = validateForm;
+module.exports = validateForm
