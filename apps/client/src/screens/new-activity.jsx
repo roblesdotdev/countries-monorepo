@@ -3,9 +3,11 @@ import Select from '@/components/select'
 import Autocomplete from '@/components/autocomplete'
 import { useState } from 'react'
 import { XMarkIcon } from '@/components/icons'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getFieldError } from '@/utils/validation'
 import { useCountries } from '@/utils/hooks/state'
+import { useNavigate } from 'react-router-dom'
+import { createNewActivity } from '@/redux/activities/actions'
 
 export default function CreateForm() {
   return (
@@ -20,9 +22,10 @@ function NewActivityForm() {
   const [countriesList, setCountriesList] = useState([])
   const [season, setSeason] = useState('')
   const { countries } = useCountries()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const isValidCountriesList = countriesList && countriesList.length
   const isValidSeason = season !== ''
+  const navigate = useNavigate()
 
   const addCountryToList = country => {
     const find = countriesList.find(c => country.id === c.id)
@@ -53,15 +56,13 @@ function NewActivityForm() {
     if (isValidTextFields && isValidCountriesList) {
       const data = {
         ...fieldValues,
-        countriesIDs: countriesList.map(c => c.id),
+        countries: countriesList.map(c => c.id),
       }
       e.currentTarget.reset()
       setCountriesList([])
-      console.log(data)
       setWasSubmitted(false)
-      // dispatch(createNewActivity(data))
-      // navigate('/dashboard/activities')
-      alert('Created')
+      dispatch(createNewActivity(data))
+      navigate('/dash/countries')
     }
   }
 
@@ -160,7 +161,7 @@ function NewActivityForm() {
 
 export const listSeasons = ['Summer', 'Aurumn', 'Spring', 'Winter'].map(
   val => ({
-    value: val.toLocaleLowerCase(),
+    value: val,
     label: val,
   }),
 )
