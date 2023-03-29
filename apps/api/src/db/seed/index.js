@@ -1,6 +1,5 @@
 const logger = require('loglevel')
 const { Country, Activity } = require('../')
-const { findOrCreateDbActivity } = require('../../utils/db')
 const { fetchData, getAllActivities } = require('./utils')
 
 async function seedCountries() {
