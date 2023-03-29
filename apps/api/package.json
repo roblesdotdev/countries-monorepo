@@ -5,7 +5,8 @@
   "description": "Backend countries service",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon src/start.js"
+    "start": "cross-env NODE_ENV=development nodemon src/start.js",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,ts ."
   },
   "author": "Aldo R. Robles",
   "license": "ISC",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
+    "eslint": "^8.36.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21"
   }

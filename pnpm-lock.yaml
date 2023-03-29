@@ -12,6 +12,7 @@ importers:
     specifiers:
       cors: ^2.8.5
       dotenv: ^16.0.3
+      eslint: ^8.36.0
       express: ^4.18.2
       express-async-errors: ^3.1.1
       loglevel: ^1.8.1
@@ -28,6 +29,7 @@ importers:
       sqlite3: 5.1.4
     devDependencies:
       dotenv: 16.0.3
+      eslint: 8.36.0
       morgan: 1.10.0
       nodemon: 2.0.21
 

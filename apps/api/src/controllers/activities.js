@@ -31,7 +31,7 @@ async function getAllActivities(_req, res) {
 
 async function getActivity(req, res) {
   const { id: activityID } = req.params;
-  const activity = await getActivityById(activityID);
+  const activity = await getDbActivityById(activityID);
   if (!activity)
     return res.jsonError(`Couldn't found activity ${activityID}`, 404);
 
