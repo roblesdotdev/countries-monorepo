@@ -26,3 +26,21 @@ export function FallbackCountries() {
     </ul>
   )
 }
+
+export function FallbackError({ error }) {
+  return (
+    <div className="flex items-center justify-center max-w">
+      <div className="w-full bg-2st p-8">
+        <p>{error}</p>
+      </div>
+    </div>
+  )
+}
+
+export function FallbackDetail() {
+  return (
+    <div>
+      <p>Loading...</p>
+    </div>
+  )
+}

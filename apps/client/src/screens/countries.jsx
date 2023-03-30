@@ -13,50 +13,42 @@ import {
   useFilter,
   useOrder,
 } from '@/utils/hooks/state'
-import { FallbackCountries } from '@/components/fallback'
-import { useEffect } from 'react'
+import { FallbackCountries, FallbackError } from '@/components/fallback'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
   const { countries } = useCountries()
   const { isFetching, error } = useFetcher()
-  const [showSpin, setShowSpin] = useState(true)
   const { currentData, currentPage, numPages, actions } =
     usePagination(countries)
-
-  useEffect(() => {
-    const t1 = setTimeout(() => {
-      setShowSpin(false)
-    }, 1000)
-    return () => clearTimeout(t1)
-  })
 
   return (
     <div>
       <DashHeader />
       <div className="p-4">
-        {(isFetching || showSpin) && !error ? (
+        {isFetching && !error ? (
           <FallbackCountries />
         ) : error ? (
-          JSON.stringify(error, null, 2)
-        ) : null}
-        <ul className="cards">
-          {currentData().map(country => (
-            <li
-              key={country.id}
-              className="card"
-              onClick={() => navigate(`${country.id}`)}
-            >
-              <img
-                src={country.flag_img}
-                alt={country.name}
-                className="flag-image w-full ratio-video"
-              />
-              <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
-              <h2 className="text-md fg-muted">{country.continent}</h2>
-            </li>
-          ))}
-        </ul>
+          <FallbackError error={error} />
+        ) : (
+          <ul className="cards">
+            {currentData().map(country => (
+              <li
+                key={country.id}
+                className="card"
+                onClick={() => navigate(`${country.id}`)}
+              >
+                <img
+                  src={country.flag_img}
+                  alt={country.name}
+                  className="flag-image w-full ratio-video"
+                />
+                <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
+                <h2 className="text-md fg-muted">{country.continent}</h2>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div className="pt-4 pb-8">
         <SimplePagination
