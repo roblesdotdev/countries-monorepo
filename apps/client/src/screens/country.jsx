@@ -1,12 +1,30 @@
+import { FallbackDetail, FallbackError } from '@/components/fallback'
 import { useDetail, useFetcher } from '@/utils/hooks/state'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+
+function useFallback() {
+  const { isFetching, error } = useFetcher()
+  const [showFallback, setShowFallback] = useState(isFetching)
+
+  useEffect(() => {
+    if (isFetching && !error) setShowFallback(true)
+    else setShowFallback(false)
+  }, [isFetching])
+
+  return {
+    showFallback,
+  }
+}
 
 export default function CountryScreen() {
   const { id } = useParams()
   const { country: currentCountry } = useDetail(id)
   const { isFetching, error } = useFetcher()
   const navigate = useNavigate()
+  const { showFallback } = useFallback()
 
   return (
     <div className="flex flex-col gap-4 pl-4 pr-4 max-w pb-6">
@@ -17,10 +35,10 @@ export default function CountryScreen() {
       </div>
       {!isFetching && currentCountry ? (
         <CountryDetail country={currentCountry} />
-      ) : isFetching && !error ? (
-        'Loading...'
+      ) : showFallback ? (
+        <FallbackDetail />
       ) : (
-        JSON.stringify(error, null, 2)
+        <FallbackError error={error} />
       )}
     </div>
   )

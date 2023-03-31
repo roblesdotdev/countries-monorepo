@@ -13,6 +13,7 @@ import {
   useFilter,
   useOrder,
 } from '@/utils/hooks/state'
+import { FallbackCountries, FallbackError } from '@/components/fallback'
 
 export default function CountriesScreen() {
   const navigate = useNavigate()
@@ -25,28 +26,29 @@ export default function CountriesScreen() {
     <div>
       <DashHeader />
       <div className="p-4">
-        {isFetching && !error
-          ? 'Loading...'
-          : error
-          ? JSON.stringify(error, null, 2)
-          : null}
-        <ul className="cards">
-          {currentData().map(country => (
-            <li
-              key={country.id}
-              className="card"
-              onClick={() => navigate(`${country.id}`)}
-            >
-              <img
-                src={country.flag_img}
-                alt={country.name}
-                className="flag-image w-full ratio-video"
-              />
-              <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
-              <h2 className="text-md fg-muted">{country.continent}</h2>
-            </li>
-          ))}
-        </ul>
+        {isFetching && !error ? (
+          <FallbackCountries />
+        ) : error ? (
+          <FallbackError error={error} />
+        ) : (
+          <ul className="cards">
+            {currentData().map(country => (
+              <li
+                key={country.id}
+                className="card"
+                onClick={() => navigate(`${country.id}`)}
+              >
+                <img
+                  src={country.flag_img}
+                  alt={country.name}
+                  className="flag-image w-full ratio-video"
+                />
+                <h1 className="text-lg mb-2 mt-4">{country.name}</h1>
+                <h2 className="text-md fg-muted">{country.continent}</h2>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div className="pt-4 pb-8">
         <SimplePagination

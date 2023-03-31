@@ -18,18 +18,24 @@ async function client(
 
   const url = `${apiURL}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`
 
+  // ----- TESTING PURPOSES ---------
+  await sleep(2000)
+  // --------------------------------
+
   return fetch(url, config)
     .then(async response => {
-      const { data } = await response.json()
+      const { data, error } = await response.json()
       if (response.ok) {
         return data
       } else {
-        return Promise.reject(data)
+        return Promise.reject(error)
       }
     })
     .catch(e => {
       return Promise.reject(`Client error: ${e.message}`)
     })
 }
+
+const sleep = time => new Promise(res => setTimeout(res, time))
 
 export { client }
