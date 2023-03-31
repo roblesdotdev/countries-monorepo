@@ -39,8 +39,20 @@ export function FallbackError({ error }) {
 
 export function FallbackDetail() {
   return (
-    <div>
-      <p>Loading...</p>
+    <div className="pulse fallback-detail">
+      <div className="w-full">
+        <div
+          className="bg-2st w-full h-8 aspect-video"
+          style={{ height: '220px' }}
+        />
+        <div className="h-6 bg-2st mt-4" style={{ width: '75%' }} />
+        <div className="h-6 bg-2st mt-4" style={{ width: '50%' }} />
+      </div>
+      <div className="w-full">
+        <div className="h-6 bg-2st mt-4" style={{ width: '75%' }} />
+        <div className="h-6 bg-2st mt-4" style={{ width: '60%' }} />
+        <div className="h-6 bg-2st mt-4" style={{ width: '50%' }} />
+      </div>
     </div>
   )
 }
